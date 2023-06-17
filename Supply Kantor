@@ -1,0 +1,21 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('/content/SupplyKantor.csv')
+
+color_mapping = {'Jakarta': 'red', 'Surabaya': 'blue', 'Yogyakarta': 'green', 'Bandung': 'orange'}
+
+plt.figure(figsize=(20, 11)) 
+
+for i, row in data.iterrows():
+    plt.scatter(row['Jenis'], row['Jumlah'], c=color_mapping[row['Kota']], s=100, alpha=0.5)
+    plt.text(row['Jenis'], row['Jumlah'], f"{row['TanggalPesan']} ({row['Harga Satuan']}) ({row['SalesRep']})", fontsize=8, ha='center', va='bottom')
+
+for kota, warna in color_mapping.items():
+    plt.scatter([], [], c=warna, label=kota)
+plt.legend()
+
+plt.xlabel('Jenis')  
+plt.ylabel('Jumlah')  
+plt.title('Supply Kantor')  
+plt.show()
